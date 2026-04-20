@@ -15,7 +15,7 @@ const PROJECTS: Project[] = [
     id: 'minesweeper',
     title: '網頁遊戲1',
     name: '踩地雷',
-    url: 'https://y11201079-eng.work.io/game2/',
+    url: 'https://y11201079-eng.github.io/mine',
     type: 'game',
     reflection: '我覺得用AI做網頁小遊戲真的非常方便，之前還要慢慢地打程式碼根除錯，現在不用了，我只需要把我的想法跟AI說，他就會依照我的想法生成出我要做的東西！'
   },
@@ -24,7 +24,7 @@ const PROJECTS: Project[] = [
     title: '3D作品集A',
     name: '企鵝貓咪',
     description: '一隻在電臀的美樂蒂',
-    url: 'https://y11201079-eng.work.io/3D//',
+    url: 'https://y11201079-eng.github.io/work/3D/',
     type: '3d',
     reflection: '這個作品是使用monster mash完成的，因為我很喜歡美樂蒂，我發現玩弄它的尾巴很可愛。'
   }

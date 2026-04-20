@@ -24,7 +24,7 @@ const PROJECTS: Project[] = [
     title: '3D作品集A',
     name: '企鵝貓咪',
     description: '一隻在電臀的美樂蒂',
-    url: 'https://y11201079-eng.github.io/work/3D/',
+    url: 'https://y11201079-eng.github.io/3D/',
     type: '3d',
     reflection: '這個作品是使用monster mash完成的，因為我很喜歡美樂蒂，我發現玩弄它的尾巴很可愛。'
   }

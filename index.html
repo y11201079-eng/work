@@ -1,13 +1,321 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>114-2 高三科技應用專題作品集 - 吳咸宏</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; /* slate-950 */
+            color: #e2e8f0; /* slate-200 */
+            scroll-behavior: smooth;
+        }
+        .font-display {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .glass {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tech-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .intro-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-20px);
+            transition: all 0.8s ease-in-out;
+        }
+        .modal-active {
+            display: flex !important;
+        }
+        iframe {
+            background: #0f172a;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020617;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #334155;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-hidden">
 
+    <!-- Intro Overlay -->
+    <div id="intro-overlay" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 text-white transition-all duration-1000">
+        <div class="absolute inset-0 tech-grid opacity-20"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px]"></div>
+        
+        <div class="relative z-10 text-center px-6">
+            <div class="inline-block mb-6 p-4 rounded-2xl bg-white/5 border border-white/10 animate-bounce">
+                <i data-lucide="sparkles" class="w-12 h-12 text-blue-400"></i>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 tracking-tight">
+                探索科技的<span class="text-blue-400">無限可能</span>
+            </h1>
+            
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed">
+                這不僅僅是一個作品集，而是一段關於學習、實作與創新的旅程。<br />
+                從網頁遊戲到 3D 建模，見證科技如何將想像化為現實。
+            </p>
+            
+            <button onclick="enterPortfolio()" class="group relative inline-flex items-center gap-2 px-10 py-5 bg-blue-600 hover:bg-blue-500 rounded-full font-bold text-lg transition-all transform hover:scale-105 active:scale-95 shadow-xl shadow-blue-600/20">
+                進入作品集
+                <i data-lucide="arrow-right" class="w-6 h-6 transition-transform group-hover:translate-x-1"></i>
+            </button>
+        </div>
+        
+        <div class="absolute bottom-8 text-slate-500 font-mono text-sm opacity-50">
+            114-2 高三科技應用專題作品集
+        </div>
+    </div>
+
+    <!-- Main Container (Hidden by default) -->
+    <div id="main-content" class="h-screen flex flex-col opacity-0 transition-opacity duration-1000 bg-slate-950">
+        <!-- Header -->
+        <header class="h-20 glass flex items-center justify-between px-8 z-30 sticky top-0 shrink-0">
+            <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center">
+                    <i data-lucide="terminal" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-display font-bold tracking-tight text-white leading-none">
+                        114-2 高三科技應用專題作品集
+                    </h1>
+                    <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mt-1">
+                        Portfolio System v2.0 Stanalone
+                    </p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-4 px-4 py-2 rounded-full bg-white/5 border border-white/10">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-medium text-white leading-none mb-1">吳咸宏</p>
+                    <p class="text-[10px] text-slate-500 font-mono">ID: 31112</p>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center border border-white/20">
+                    <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="w-72 glass border-r border-white/5 flex flex-col shrink-0">
+                <div class="p-6">
+                    <h2 class="text-[10px] font-mono text-slate-500 uppercase tracking-widest mb-6">作品選單 / MENU</h2>
+                    <nav class="space-y-1">
+                        <button onclick="showProject('welcome')" id="nav-welcome" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-blue-400 bg-blue-600/10 border border-blue-500/20">
+                            <i data-lucide="home" class="w-5 h-5"></i>
+                            <span class="font-medium">首頁</span>
+                        </button>
+                        <button onclick="showProject('minesweeper')" id="nav-minesweeper" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-slate-400 hover:bg-white/5 hover:text-white">
+                            <i data-lucide="gamepad-2" class="w-5 h-5 text-slate-500 group-hover:text-blue-400"></i>
+                            <span class="font-medium">網頁遊戲1 (踩地雷)</span>
+                        </button>
+                        <button onclick="showProject('3d')" id="nav-3d" class="nav-btn w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group text-slate-400 hover:bg-white/5 hover:text-white">
+                            <i data-lucide="box" class="w-5 h-5 text-slate-500 group-hover:text-blue-400"></i>
+                            <span class="font-medium">3D作品集A (企鵝貓咪)</span>
+                        </button>
+                    </nav>
+                </div>
+                
+                <div class="mt-auto p-6 border-t border-white/5">
+                    <div class="p-4 rounded-xl bg-blue-600/5 border border-blue-500/10">
+                        <div class="flex items-center gap-2 text-blue-400 mb-2">
+                            <i data-lucide="info" class="w-4 h-4"></i>
+                            <span class="text-[10px] font-bold uppercase tracking-wider">系統提示</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-relaxed italic">
+                            請從選單切換作品，探索開發細節與創作心得。
+                        </p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Content Area -->
+            <main id="content-viewport" class="flex-1 overflow-y-auto bg-slate-950 tech-grid relative">
+                
+                <!-- Welcome Screen -->
+                <div id="view-welcome" class="project-view h-full flex flex-col items-center justify-center p-12 text-center">
+                    <div class="w-24 h-24 rounded-3xl bg-blue-600/10 border border-blue-500/20 flex items-center justify-center mx-auto mb-10 animate-pulse">
+                        <i data-lucide="home" class="w-12 h-12 text-blue-400"></i>
+                    </div>
+                    <h2 class="text-4xl text-white font-display font-bold mb-6">歡迎進入科技專題作品集</h2>
+                    <p class="text-slate-400 text-lg max-w-2xl leading-relaxed">
+                        這裡記錄了我對程式邏輯、遊戲開發以及 3D 視覺設計的探索。<br>
+                        點擊左側作品名稱，開啟互動預覽視窗。
+                    </p>
+                </div>
+
+                <!-- Project Screen (Common Structure) -->
+                <div id="view-project" class="project-view hidden p-8 lg:p-12">
+                    <div class="max-w-6xl mx-auto space-y-10">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/5">
+                            <div>
+                                <div id="project-tags" class="flex gap-2 mb-4"></div>
+                                <h2 id="project-name" class="text-5xl font-display font-bold text-white tracking-tight"></h2>
+                                <p id="project-desc" class="mt-4 text-slate-400 text-lg max-w-2xl"></p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button onclick="openModal()" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20 hover:bg-amber-500/20 transition-all font-semibold">
+                                    <i data-lucide="lightbulb" class="w-5 h-5"></i>
+                                    重點提醒
+                                </button>
+                                <a id="project-link" href="#" target="_blank" class="flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 text-white hover:bg-blue-500 transition-all font-bold shadow-lg shadow-blue-600/30">
+                                    <i data-lucide="external-link" class="w-5 h-5"></i>
+                                    查看原始網頁
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Iframe -->
+                        <div class="relative aspect-video w-full rounded-3xl overflow-hidden border border-white/10 shadow-3xl">
+                            <iframe id="project-iframe" src="" class="w-full h-full" frameborder="0"></iframe>
+                        </div>
+
+                        <!-- Reflection -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                            <div class="lg:col-span-2 space-y-6">
+                                <div class="flex items-center gap-3 text-white">
+                                    <i data-lucide="message-square" class="w-6 h-6 text-blue-400"></i>
+                                    <h3 class="text-2xl font-display font-bold">創作心得 / Reflection</h3>
+                                </div>
+                                <div class="p-8 rounded-3xl bg-slate-900/50 border border-white/10 relative overflow-hidden group">
+                                    <p id="project-reflection" class="text-slate-300 text-lg leading-relaxed italic z-10 relative"></p>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h3 class="text-xl font-display font-bold text-white">技術標籤 / TECH</h3>
+                                <div id="project-tech" class="flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="tip-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-950/80 backdrop-blur-md">
+        <div class="w-full max-w-lg glass p-10 rounded-3xl shadow-3xl text-center relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-slate-500 hover:text-white transition-colors">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+            <div class="w-20 h-20 rounded-3xl bg-amber-500/10 flex items-center justify-center mx-auto mb-8">
+                <i data-lucide="lightbulb" class="w-10 h-10 text-amber-400"></i>
+            </div>
+            <h3 class="text-3xl font-display font-bold text-white mb-6">本單元學習重點</h3>
+            <div id="modal-content" class="text-slate-400 text-lg space-y-4 text-left leading-relaxed"></div>
+            <button onclick="closeModal()" class="w-full mt-10 py-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-lg transition-all">
+                我知道了
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const projects = {
+            minesweeper: {
+                name: "踩地雷",
+                url: "https://y11201079-eng.github.io/mine",
+                type: "Web Game",
+                desc: "經典益智遊戲的現代化網頁版本，著重於邏輯判斷與使用者介面設計。",
+                reflection: "我覺得用AI做網頁小遊戲真的非常方便，之前還要慢慢地打程式碼根除錯，現在不用了，我只需要把我的想法跟AI說，他就會依照我的想法生成出我要做的東西！",
+                tech: ["HTML5", "CSS3", "JavaScript", "Logic", "AI Assisted"],
+                tips: "這項作品展示了 AI 如何加速開發週期，將開發重點從繁瑣的程式碼編寫轉向『概念設計』。掌握了如何給予精準指令，是未來開發者的核心競爭力。"
+            },
+            '3d': {
+                name: "企鵝貓咪",
+                url: "https://y11201079-eng.github.io/3D/",
+                type: "3D Modeling",
+                desc: "一隻在電臀的美樂蒂，透過 3D 渲染技術賦予靜態角色生命力。",
+                reflection: "這個作品是使用monster mash完成的，因為我很喜歡美樂蒂，我發現玩弄它的尾巴很可愛。",
+                tech: ["Monster Mash", "3D Modeling", "Animation", "VFX"],
+                tips: "這是一個結合美感與動作設計的作品。重點在於 3D 骨架的綁定 (Rigging) 與動作的平滑度處理，透過簡單的線條描繪即可生成複雜的 3D 模型。"
+            }
+        };
+
+        function enterPortfolio() {
+            lucide.createIcons();
+            document.getElementById('intro-overlay').classList.add('intro-hidden');
+            setTimeout(() => {
+                document.getElementById('intro-overlay').style.display = 'none';
+                document.getElementById('main-content').classList.remove('opacity-0');
+            }, 800);
+        }
+
+        function showProject(id) {
+            // Update UI Sidebar
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-400', 'bg-blue-600/10', 'border', 'border-blue-500/20');
+                btn.classList.add('text-slate-400');
+            });
+            document.getElementById('nav-' + id).classList.add('text-blue-400', 'bg-blue-600/10', 'border', 'border-blue-500/20');
+            document.getElementById('nav-' + id).classList.remove('text-slate-400');
+
+            // Toggle Screens
+            document.querySelectorAll('.project-view').forEach(view => view.classList.add('hidden'));
+            
+            if (id === 'welcome') {
+                document.getElementById('view-welcome').classList.remove('hidden');
+            } else {
+                const p = projects[id];
+                document.getElementById('view-project').classList.remove('hidden');
+                document.getElementById('project-name').innerText = p.name;
+                document.getElementById('project-desc').innerText = p.desc;
+                document.getElementById('project-reflection').innerText = `「${p.reflection}」`;
+                document.getElementById('project-iframe').src = p.url;
+                document.getElementById('project-link').href = p.url;
+                
+                // Tags
+                const tagsEl = document.getElementById('project-tags');
+                tagsEl.innerHTML = `<span class="px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 text-[10px] font-mono uppercase tracking-widest border border-blue-500/30">${p.type}</span>`;
+                
+                // Tech
+                const techEl = document.getElementById('project-tech');
+                techEl.innerHTML = p.tech.map(t => `<span class="px-4 py-2 rounded-lg bg-slate-800 text-slate-300 text-sm border border-white/5 font-medium">${t}</span>`).join('');
+                
+                // Active project reference for modal
+                window.currentProjectId = id;
+            }
+            
+            // Scroll to top
+            document.getElementById('content-viewport').scrollTop = 0;
+        }
+
+        function openModal() {
+            const p = projects[window.currentProjectId];
+            document.getElementById('modal-content').innerHTML = `<ul><li><b class="text-blue-400">專注領域：</b>${p.type}</li><li><b class="text-amber-400">開發秘訣：</b>${p.tips}</li></ul>`;
+            document.getElementById('tip-modal').classList.add('modal-active');
+        }
+
+        function closeModal() {
+            document.getElementById('tip-modal').classList.remove('modal-active');
+        }
+
+        // Initialize Icons
+        window.onload = () => {
+            lucide.createIcons();
+        };
+    </script>
+</body>
+</html>
